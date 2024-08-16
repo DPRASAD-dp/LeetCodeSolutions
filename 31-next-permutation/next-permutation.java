@@ -2,7 +2,7 @@ class Solution {
     public void nextPermutation(int[] nums) {
         int i = nums.length - 2;
 
-        // Find the first index 'i' such that nums[i] < nums[i + 1]
+        
         while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
         }
@@ -10,16 +10,16 @@ class Solution {
         if (i >= 0) {
             int j = nums.length - 1;
 
-            // Find the first index 'j' such that nums[j] > nums[i]
+            
             while (nums[j] <= nums[i]) {
                 j--;
             }
 
-            // Swap nums[i] and nums[j]
+            
             swap(nums, i, j);
         }
 
-        // Reverse the subarray starting at i + 1
+        
         reverse(nums, i + 1);
     }
 
