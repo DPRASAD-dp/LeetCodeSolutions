@@ -14,12 +14,7 @@ class Solution {
                 end = mid-1;
             }
         }
-        if((end+1)<=nums.length-1){
-            return end+1;
-        }
-        else{
-            return end+1;
-        }
+         return end+1;
 
     }
 }
