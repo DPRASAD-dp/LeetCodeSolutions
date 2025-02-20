@@ -17,7 +17,7 @@ class Solution {
         Node current = head;
 
         while (current != null) {
-            // If there's no child, move to the next node
+            
             if (current.child == null) {
                 current = current.next;
             } else {
