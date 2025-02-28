@@ -10,40 +10,44 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        
 
-        ListNode slow = head;
-        ListNode fast = head;
+        ListNode middle = findMiddle(head);
+        ListNode temp = head;
 
-        while(fast != null && fast.next != null){
-            slow = slow.next;
-            fast= fast.next.next;
-            
-        }
+        ListNode rev = reversetheLinked(middle);
+        while(temp.next!= null && rev.next!= null){
+            ListNode s = temp.next;
+            ListNode f = rev.next;
+            temp.next = rev;
+            rev.next = s;
+            temp = s;
+            rev = f;
 
-        ListNode past = null;
-        ListNode now = slow.next;
-        slow.next = null;
-        while(now != null){
-            ListNode future = now.next;
-            now.next = past;
-            past = now;
-            now = future;
-
-        }
-       
-
-        ListNode a = head;
-        ListNode b = past;
-        while(b != null){
-            ListNode temp1 = a.next;
-            ListNode temp2 = b.next;
-            a.next = b;
-            b.next = temp1;
-            a = temp1;
-            b = temp2;
 
         }
 
     }
+
+    public ListNode findMiddle(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next!= null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+    public ListNode reversetheLinked(ListNode head){
+        ListNode now = head;
+        ListNode prev = null;
+        while(now!=null){
+            ListNode future = now.next;
+            now.next = prev;
+            prev = now;
+            now = future;
+        }
+        return prev;
+    }
+    
 }
