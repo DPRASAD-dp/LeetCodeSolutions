@@ -15,46 +15,39 @@
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        boolean isrev = false;
-        Queue<TreeNode> queue = new LinkedList<>();
-        List<List<Integer>> arr = new ArrayList<>();
-        
         if(root == null){
-            return arr;
+            return new ArrayList<>();
         }
+        boolean a = true;
+        List<List<Integer>> ans = new ArrayList<>();
+        Queue<TreeNode> queue  = new LinkedList<>();
         queue.offer(root);
 
         while(!queue.isEmpty()){
-            List<Integer> res = new ArrayList<>();
-            int size = queue.size();
-            if(isrev){
-            for(int i =0;i<size;i++){ 
-                TreeNode node = queue.poll();
-                int arrval = node.val;
-                res.add(arrval);
-                if(node.right!= null){queue.offer(node.right);}
-                if(node.left!= null){queue.offer(node.left);}
-   
-            }
-                        }
-            else{
-                for(int i =0;i<size;i++){ 
-                TreeNode node = queue.poll();
-                int arrval = node.val;
-                res.add(arrval);
-                if(node.right!= null){queue.offer(node.right);}
-                if(node.left!= null){queue.offer(node.left);}
-                
-   
-            }
-            Collections.reverse(res);
-            }
-            arr.add(res);
-            isrev = !isrev;
-            }
+            int n = queue.size();
 
-            return arr;
+            List<Integer>arr = new ArrayList<>();
+            for(int i = 0;i<n;i++){
+                TreeNode temp = queue.poll();
+                arr.add(temp.val);
+                if(temp.right != null){
+                    queue.add(temp.right);
+                }
+                if(temp.left != null){
+                    queue.add(temp.left);
+                }
+                
+            }
+            if(a){
+                Collections.reverse(arr);
+                
+            }
+            a = !a;
+            ans.add(arr);
         }
 
-        
+        return ans;
+
+
     }
+}
