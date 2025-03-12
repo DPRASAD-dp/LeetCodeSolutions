@@ -14,25 +14,33 @@
  * }
  */
 class Solution {
-    int maxdi = 0;
+    int dia  = 0;
     public int diameterOfBinaryTree(TreeNode root) {
-        diacal(root);
-        return maxdi;
-        
+        helper(root);
+        return dia;
     }
 
-    public int diacal(TreeNode node){
-        if(node == null){
+    int helper(TreeNode node){
+        if(node==null){
             return 0;
         }
-        
-        int rightheight = diacal(node.right);
-        int leftheight = diacal(node.left);
-        
+        int rightheight = 0;
+        int leftheight = 0;
 
-        maxdi = Math.max(maxdi,(leftheight+rightheight));
+        if(node.left != null){
+        leftheight = helper(node.left);
+        }
+        if(node.right != null){
+        rightheight = helper(node.right);
+        }
+
+        int nodedia = rightheight+leftheight;
+        dia = Math.max(nodedia,dia);
+
+        int height = Math.max(leftheight,rightheight)+1;
+        return height;
 
 
-        return Math.max(leftheight,rightheight)+1;
+
     }
 }
