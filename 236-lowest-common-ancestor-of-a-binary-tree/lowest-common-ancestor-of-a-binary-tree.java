@@ -9,63 +9,29 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-
-        if( p == root || q == root){
-            return root;
-        }
-
-        ArrayList<TreeNode> arr1 = new ArrayList<>();
-        ArrayList<TreeNode> arr2 = new ArrayList<>();
-
-        findpath(root,p,arr1);
-        findpath(root,q,arr2);
-
-        return findlca(arr1,arr2);
-     
+        return helper(root,p,q);
     }
 
-    public boolean findpath(TreeNode node,TreeNode a,ArrayList<TreeNode>list){
-
-        if(node==null){
-            return false;
+    TreeNode helper(TreeNode node,TreeNode p, TreeNode q){
+        if(node == null){
+            return null;
         }
-        list.add(node);
-        if(node.val == a.val){
-            return true;
+        if(node.val == p.val || node.val == q.val){
+            return node;
         }
 
-    
-        boolean isFoundInLeftSubtree = findpath(node.left,a,list);
+        TreeNode left = helper(node.left,p,q);
+        TreeNode right = helper(node.right,p,q);
 
-        if (isFoundInLeftSubtree) {
-            return true;
+         if (left != null && right != null) {
+            return node;
         }
 
-
-        
-        boolean isFoundInRightSubtree = findpath(node.right,a,list);
-
-        if (isFoundInRightSubtree) {
-            return true;
+        if(left == null){
+            return right;
         }
-
-        list.remove(list.size() - 1);
-        return false;
-
-
-
+        return left;
+    }
 
 
     }
-
-    public TreeNode findlca(ArrayList<TreeNode> list1,ArrayList<TreeNode> list2){
-        TreeNode tn = null;
-        int min = Integer.MAX_VALUE;
-        for(int i = 0;i<Math.min(list1.size(),list2.size());i++){
-            if(list1.get(i) == list2.get(i) && list1.get(i).val<min){ 
-                tn = list1.get(i);
-            }
-        }
-        return tn;
-    }
-}
