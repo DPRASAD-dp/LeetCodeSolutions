@@ -27,10 +27,8 @@ class Solution {
             return node;
         }
 
-        if(left == null){
-            return right;
-        }
-        return left;
+        
+        return left != null ? left : right;
     }
 
 
