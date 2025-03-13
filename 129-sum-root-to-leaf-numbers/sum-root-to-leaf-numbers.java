@@ -14,24 +14,28 @@
  * }
  */
 class Solution {
+    int sum = 0;
     public int sumNumbers(TreeNode root) {
-        return findsum(root,0);  
+        return helper(root,0);
     }
-
-    public int findsum(TreeNode node,int sum){
+    int helper(TreeNode node,int num){
         if(node == null){
-            return 0;
+            return num;
         }
-        
-        sum = sum*10 + node.val;
-
-        if(node.right == null && node.left == null){
-            return sum;
+        num = num*10 + node.val;
+        if(node.left == null && node.right == null){
+            return num;
         }
 
-    return findsum(node.right,sum) + findsum(node.left,sum);
+        int left = helper(node.left,num);
+        int right = helper(node.right,num);
 
-
+        if(node.right == null){
+            return left;
+        }
+        if(node.left == null){
+            return right;
+        }
+        return left+right;
     }
-
 }
