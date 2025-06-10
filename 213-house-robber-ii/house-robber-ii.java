@@ -1,39 +1,33 @@
 class Solution {
     public int rob(int[] nums) {
 
-        if(nums.length ==1){
+        if(nums.length == 1){
             return nums[0];
         }
-
         int n = nums.length;
-        int[] arr= new int[n];
-        Arrays.fill(arr,-1);
-        int ans1 = callhelper(nums,arr,0,n-1);
-        Arrays.fill(arr,-1);
-        int ans2 = callhelper(nums,arr,1,n);
+        int[] dp = new int[n+1];
+        Arrays.fill(dp,-1);
+        int ans1 = rob_house(1,dp,nums,n);
+        Arrays.fill(dp,-1);
+        int ans2 = rob_house(0,dp,nums,n-1);
 
-       return Math.max(ans1,ans2);
-
-
+        return Math.max(ans1,ans2);
     }
-     int callhelper(int[] nums,int[] arr,int a,int n){
 
-        if(a>=n){
+    public int rob_house(int i,int[] dp,int[] nums,int n){
+        if(i > n-1){
             return 0;
         }
-        if(arr[a] != -1){
-            return arr[a];
+
+        if(dp[i]!= -1){
+            return dp[i];
         }
-        int choice1 = nums[a] + callhelper(nums,arr,a+2,n);
-        int choice2 = callhelper(nums,arr,a+1,n);
 
-        int finalmax = Math.max(choice1,choice2);
-        arr[a] = finalmax;
-        return finalmax;
+        int include = nums[i] + rob_house(i+2,dp,nums,n);
+        int exclude = 0+ rob_house(i+1,dp,nums,n);
 
-
+        dp[i] = Math.max(include,exclude);
+        return dp[i];
 
     }
-
-
 }
