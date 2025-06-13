@@ -4,7 +4,7 @@ class Solution {
         int m = text1.length();
         int n = text2.length();
 
-        int[][] dp = new int[m+1][n+1];
+        int[][] dp = new int[m][n];
 
         for(int i =0;i<m;i++){
             Arrays.fill(dp[i],-1);
