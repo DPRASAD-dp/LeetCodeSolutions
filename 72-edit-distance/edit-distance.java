@@ -24,8 +24,8 @@ class Solution {
         int deletedist = 0;
         int replacedist = 0;
 
-        if(word1.charAt(i) == word2.charAt(j)){
-            return 0 + edit_distance(i+1,j+1,word1,word2,m,n,dp);
+        if (word1.charAt(i) == word2.charAt(j)) {
+            dp[i][j] = edit_distance(i + 1, j + 1, word1, word2, m, n, dp);
         }
 
         else{
@@ -33,9 +33,10 @@ class Solution {
         insertdist =  1 + edit_distance(i,j+1,word1,word2,m,n,dp);
         deletedist = 1 + edit_distance(i+1,j,word1,word2,m,n,dp);
         replacedist = 1+ edit_distance(i+1,j+1,word1,word2,m,n,dp);
+        dp[i][j] = Math.min(insertdist,Math.min(deletedist,replacedist));
         }
 
-        dp[i][j] = Math.min(insertdist,Math.min(deletedist,replacedist));
+        
         return dp[i][j];
 
     }
