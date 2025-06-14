@@ -1,54 +1,75 @@
+import java.util.*;
 class Solution {
     public boolean isMatch(String s, String p) {
-        int n1 = s.length();
-        int n2 = p.length();
-        int[][] cache = new int[n1][n2];
+        int m = s.length();
+        int n = p.length();
 
-        for(int[] row : cache){
-            Arrays.fill(row,-1);
+        int[][] dp = new int[m+1][n+1];
+        for(int i = 0;i<m+1;i++){
+            Arrays.fill(dp[i],-1);
         }
-        return helper(0,n1,s,0,n2,p,cache);
+
+        return wildcard_dp(0,0,s,p,dp,m,n);
     }
 
-    boolean helper(int index1,int n1,String s,int index2,int n2,String p,int[][] cache){
-
-        if(index1 == n1){
-            while(index2<n2){
-                if(p.charAt(index2) != '*'){
-                    return false;
-                }
-                index2++;
-            }
+    public boolean wildcard_dp(int i,int j,String s, String p,int[][] dp,int m,int n){
+        if(i==m && j==n){
             return true;
         }
-        else if(index2 == n2){
+
+        if(j == n){
+            return false;
+        }
+        if(i == m){
+            for(int k = j ;k<n;k++){
+                if(p.charAt(k) != '*'){
+                    return false;
+                }
+                
+            }
+            return true;
+
+        }
+
+        if(dp[i][j] != -1){
+            if(dp[i][j] == 0){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+
+        boolean include = false;
+        boolean use = false;
+
+        if(s.charAt(i) == p.charAt(j) || p.charAt(j) == '?'){
+            include = wildcard_dp(i+1,j+1,s,p,dp,m,n);
+        }
+
+        else if(p.charAt(j) == '*'){
+
+        use = wildcard_dp(i+1,j,s,p,dp,m,n) || wildcard_dp(i,j+1,s,p,dp,m,n);
+        }
+        else{
+            dp[i][j] = 0;
+        }
+
+        if(include || use){
+            dp[i][j] = 1;
+        }
+        else{
+            dp[i][j] = 0;
+        }
+
+        if(dp[i][j] == 1){
+            return true;
+        }
+        else{
             return false;
         }
 
-        if(cache[index1][index2] != -1){
-            if(cache[index1][index2] == 1){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
+    }
 
-        boolean result = false;
-        if(s.charAt(index1) == p.charAt(index2) || p.charAt(index2) == '?'){
-            return helper(index1+1,n1,s,index2+1,n2,p,cache);
-        }
-        else if(p.charAt(index2)=='*'){
-            boolean choice1 = helper(index1,n1,s,index2+1,n2,p,cache);
-            boolean choice2 = helper(index1+1,n1,s,index2,n2,p,cache);
-            result = choice1 || choice2;
-        }
-        if(result == true){
-            cache[index1][index2] = 1;
-        }
-        else{
-            cache[index1][index2] = 0;
 
-        }
-        return result;
-}}
+}
