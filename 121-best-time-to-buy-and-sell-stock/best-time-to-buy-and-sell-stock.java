@@ -7,12 +7,11 @@ class Solution {
             if(prices[i] < mini){
                 mini = prices[i];
             }
-            else{
-                if(prices[i] > mini && (prices[i]-mini) > profit){
+            if(prices[i] > mini && (prices[i]-mini) > profit){
                     profit = prices[i]-mini;
                 }
             }
-        }
+        
         return profit;
     }
 }
