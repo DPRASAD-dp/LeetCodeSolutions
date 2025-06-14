@@ -1,33 +1,24 @@
-import java.util.*;
 class Solution {
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
-        int[][] dp = new int[n][n+1];
+        int[] dp = new int[n];
+        Arrays.fill(dp,1);
+        for(int i = 1;i<n;i++){
+            for(int j= 0;j<i;j++){
+                if(nums[j] < nums[i] ){
+                    if(dp[j]+1>dp[i]){
+                        dp[i] = dp[j]+1;
+                    }
+                }
+            }
+        }
+        int maxi = 0;
 
         for(int i =0;i<n;i++){
-            Arrays.fill(dp[i],-1);
+            if(dp[i] > maxi){
+                maxi = dp[i];
+            }
         }
-
-        return lis_dp(0,-1,dp,nums,n);
-    }
-
-    public int lis_dp(int i,int j,int[][] dp,int[] nums,int n){
-        if(i == n){
-            return 0;
-        }
-        if(dp[i][j+1] != -1){
-            return dp[i][j+1];
-        }
-        int include = 0;
-        
-
-        if(j == -1 || nums[i] > nums[j]){
-            include = 1 + lis_dp(i+1,i,dp,nums,n);
-        }
-
-        int exclude = 0+lis_dp(i+1,j,dp,nums,n);
-
-        dp[i][j+1] = Math.max(include,exclude);
-        return dp[i][j+1];
+        return maxi;
     }
 }
