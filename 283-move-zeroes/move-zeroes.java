@@ -1,20 +1,20 @@
 class Solution {
     public void moveZeroes(int[] nums) {
         int n = nums.length;
-        int nonZeroIndex = 0;
-        
-        // Move all non-zero elements to the front
-        for (int i = 0; i < n; i++) {
-            if (nums[i] != 0) {
-                nums[nonZeroIndex] = nums[i];
-                nonZeroIndex++;
-            }
+        for(int i =0;i<n;i++){
+        if(nums[i] == 0 && i != n-1){
+            swapwith(nums,i,n);
         }
-        
-        // Fill the remaining elements with 0
-        while (nonZeroIndex < n) {
-            nums[nonZeroIndex] = 0;
-            nonZeroIndex++;
+        }
+}
+
+    public void swapwith(int[] nums,int a,int n){
+        for(int i =a+1;i<n;i++){
+            if(nums[i] != 0){
+                nums[a] = nums[i];
+                nums[i] = 0;
+                return;
+            }
         }
     }
 }
