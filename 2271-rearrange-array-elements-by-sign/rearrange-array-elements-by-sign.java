@@ -1,33 +1,38 @@
-import java.util.ArrayList;
-
 class Solution {
     public int[] rearrangeArray(int[] nums) {
-        int n = nums.length;
-        ArrayList<Integer> arrp = new ArrayList<>();
-        ArrayList<Integer> arrn = new ArrayList<>();
-        
-  
-        for(int i = 0; i < n; i++){
-            if(nums[i] >= 0){
-                arrp.add(nums[i]);
-            } else {
-                arrn.add(nums[i]);
+        int n = nums.length/2;
+        int[] pos = new int[n];
+        int[] neg = new int[n];
+
+        int a = 0;
+        int b = 0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] > 0){
+                pos[a]= nums[i];
+                a++;
+            }
+            else{
+                neg[b] = nums[i];
+                b++;
             }
         }
-        
-        int[] arr = new int[n];
-        int count = 0;
-        int p=0;
-        int q=0;
-        for(int j = 0; j < n; j++){
-            if(count % 2 == 0){
-                arr[j] = arrp.get(p++);
-            } else {
-                arr[j] = arrn.get(q++);
-            }
-            count++;
+
+        int j = 0;
+        int k =0;
+       
+        for(int i =0;i<nums.length;i++){
+           if(i%2 == 0){
+            nums[i] = pos[k];
+            k++;
+           } 
+           else{
+            nums[i] = neg[j];
+            j++;
+           }
         }
-        
-        return arr;
+
+        System.out.println(Arrays.toString(pos));
+        System.out.println(Arrays.toString(neg));
+        return nums;
     }
 }
