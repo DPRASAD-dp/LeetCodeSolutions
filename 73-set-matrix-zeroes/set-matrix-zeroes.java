@@ -1,52 +1,40 @@
-import java.util.ArrayList;
-
 class Solution {
     public void setZeroes(int[][] matrix) {
-        // Create a list to store the coordinates of the zeros
-        ArrayList<ArrayList<Integer>> aList = new ArrayList<>();
+        int m = matrix.length;
+        int n = matrix[0].length;
 
-        // Traverse the matrix to find all zero elements
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j] == 0) {
-                    // Store the coordinates (i, j) of the zero element
-                    ArrayList<Integer> arr = new ArrayList<>();
-                    arr.add(i); // row index
-                    arr.add(j); // column index
-                    aList.add(arr);
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for(int i =0;i<m;i++){
+            for(int j =0;j<n;j++){
+                if(matrix[i][j] == 0){
+                    ArrayList<Integer> pair = new ArrayList<>();
+                    pair.add(i);
+                    pair.add(j);
+                    list.add(pair);
                 }
             }
         }
 
-        // Set the respective rows and columns to Integer.MIN_VALUE (temporary marker)
-        for (ArrayList<Integer> arr : aList) {
-            // Get the row and column indices
-            int row = arr.get(0);
-            int col = arr.get(1);
-
-            // Set the respective row and column to Integer.MIN_VALUE
-            setzerofunctionrow(row, col, matrix);
-            setzerofunctioncolumn(row, col, matrix);
+        for(int i =0;i<list.size();i++){
+            makerowzeros(list.get(i).get(0),matrix,m,n);
+            makecolumnzeros(list.get(i).get(1),matrix,m,n);
         }
 
         
     }
 
-    // Function to set the entire row to Integer.MIN_VALUE
-    public static void setzerofunctionrow(int row, int col, int[][] matrix) {
-        for (int u = 0; u < matrix[row].length; u++) {
-             // Avoid overwriting already existing 0s
-                matrix[row][u] = 0;
-            
+    public static void makecolumnzeros(Integer i,int[][] matrix,int m,int n){
+        
+            for(int k = 0;k<m;k++){
+                matrix[k][i] = 0;
+                            }
         }
-    }
+    
 
-    // Function to set the entire column to Integer.MIN_VALUE
-    public static void setzerofunctioncolumn(int row, int col, int[][] matrix) {
-        for (int k = 0; k < matrix.length; k++) {
-             // Avoid overwriting already existing 0s
-                matrix[k][col] = 0;
-            
-        }
+    public static void makerowzeros(int i,int[][] matrix,int m,int n){
+        for(int k = 0;k<n;k++){
+                matrix[i][k] = 0;
+                            }
+
     }
 }
