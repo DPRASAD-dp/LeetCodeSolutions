@@ -10,52 +10,30 @@
  */
 class Solution {
     public ListNode oddEvenList(ListNode head) {
-
-if(head == null || head.next == null){
-    return head;
-}
-
-        ListNode even = null;
-        ListNode odd = null;
-        ListNode evenhead = null;
-        ListNode oddhead = null;
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode evenDummy = new ListNode(0);
+        ListNode oddDummy = new ListNode(0);
+        ListNode even = evenDummy, odd = oddDummy;
         ListNode temp = head;
         int i = 1;
-        while(temp != null){
-            if(i % 2 == 0){
-                if(evenhead == null){
-                    evenhead= temp;
-                    even = temp;
-
-                }
-                else{
-                    even.next= temp;
-                    even = even.next;
-
-                }
-
+        while(temp!= null){
+            System.out.println("forming list");
+            if(i%2 ==0){
+                even.next =temp;
+                even = even.next;
+            }else{
+                odd.next = temp;
+                odd = odd.next;
             }
-            else{
-                if(oddhead == null){
-                    oddhead = temp;
-                    odd  =  temp;
-                }
-                else{
-                    odd.next = temp;
-                    odd = odd.next;
-
-
-                }
-            }
-
-            temp = temp.next;
             i++;
-
-
+            temp = temp.next;
         }
-
-        odd.next = evenhead;
         even.next = null;
-        return oddhead;
+        odd.next = evenDummy.next;
+        System.out.println("campleted forming");
+        return oddDummy.next;
+
     }
 }
