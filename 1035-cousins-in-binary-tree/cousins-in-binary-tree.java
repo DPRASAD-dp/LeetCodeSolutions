@@ -14,59 +14,37 @@
  * }
  */
 class Solution {
-
     public boolean isCousins(TreeNode root, int x, int y) {
-
-        TreeNode xx = findNode(root,x);
-        TreeNode yy = findNode(root,y);
-        return (level(root,xx,0)==level(root,yy,0) && !isSibling(root,xx,yy));
-        
+        return (level(x,root,0) == level(y,root,0)) && (!(sibling(x,y,root)));
     }
 
-    TreeNode findNode(TreeNode root,int x){
+    public int level(int x,TreeNode root,int level){
         if(root == null){
-            return null;
+            return -1;
         }
         if(root.val == x){
-            return root;
+            return level;
         }
-
-        TreeNode n = findNode(root.left,x);
-
-        if(n!= null){
-            return n;
-        }
+        int  left =  level(x,root.left,level+1);
+        if(left != -1){
+            return left;        }
         
-            return findNode(root.right,x);
-        
-
-
+        int right = level(x,root.right,level+1);
+        return right;
     }
 
-    int level(TreeNode root,TreeNode xx,int a){
-        if(root == null){
-            return 0;
-        }
-
-        if(root.val == xx.val){
-            return a;
-        }
-
-        int n = level(root.left,xx,a+1);
-        if(n!=0){
-            return n;
-        }
-        return level(root.right,xx,a+1);
-    }
-
-
-    boolean isSibling(TreeNode root,TreeNode xx,TreeNode yy){
+    public boolean sibling(int x,int y,TreeNode root){
         if(root == null){
             return false;
         }
+        if(root.right!=null && root.left!= null){
+        if((root.right.val == x && root.left.val == y )|| (root.left.val == x && root.right.val == y )){
+            return true;
+        }}
 
-        return (root.right == xx && root.left == yy) || (root.right == yy && root.left == xx) || isSibling(root.right,xx,yy) || isSibling(root.left,xx,yy);
+        return  sibling(x,y,root.left) || sibling(x,y,root.right);
     }
+
 
 
 }
