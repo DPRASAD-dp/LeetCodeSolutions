@@ -11,25 +11,22 @@ class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         return helper(root,p,q);
     }
-
-    TreeNode helper(TreeNode node,TreeNode p, TreeNode q){
+    public TreeNode helper(TreeNode node, TreeNode p, TreeNode q){
         if(node == null){
             return null;
         }
-        if(node.val == p.val || node.val == q.val){
+        if(node.val == p.val || node.val == q.val ){
             return node;
         }
-
         TreeNode left = helper(node.left,p,q);
         TreeNode right = helper(node.right,p,q);
 
-         if (left != null && right != null) {
+        if(left != null && right != null){
             return node;
         }
-
-        
-        return left != null ? left : right;
+        if(left == null){
+            return right;
+        }
+        return left;
     }
-
-
-    }
+}
