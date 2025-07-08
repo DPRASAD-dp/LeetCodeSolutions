@@ -17,26 +17,18 @@ class Solution {
     int count = 0;
     int result = 0;
     public int kthSmallest(TreeNode root, int k) {
-       
-        helper(root,k);     
-        return result;   
-        
-        }
-
-    void helper(TreeNode root,int k){
+        inorder(root,k);
+        return result;
+    }
+    public void inorder(TreeNode root,int k){
         if(root == null){
             return;
         }
-
-        helper(root.left,k);
+        inorder(root.left,k);
         count++;
         if(count == k){
             result = root.val;
-            return;
         }
-        helper(root.right,k);
-
-    
-
+        inorder(root.right,k);
     }
 }
