@@ -14,28 +14,16 @@
  * }
  */
 class Solution {
-    int depth  = 0;
     public int maxDepth(TreeNode root) {
-        helper(root,1);
-        return depth;
+        return cal_height(root);
     }
-
-    int helper(TreeNode node,int h){
-        if(node == null){
-            return h;
+     public int cal_height(TreeNode root){
+        if(root == null){
+            return 0;
         }
 
-        depth = Math.max(h,depth);
-
-        if(node.left != null){
-            helper(node.left,h+1);
+        int leftheight = cal_height(root.left);
+        int rightheight = cal_height(root.right);
+        return Math.max(leftheight,rightheight)+1;    
         }
-
-        if(node.right != null){
-            helper(node.right,h+1);
-        }
-
-          return h;
-
-    }
 }
