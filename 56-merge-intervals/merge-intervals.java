@@ -19,7 +19,7 @@ class Solution {
             }
         }
         arr.add(curry);
-        return arr.toArray(new int[arr.size()][]);
+        return arr.toArray(new int[arr.size()][2]);
 
     }
 }
