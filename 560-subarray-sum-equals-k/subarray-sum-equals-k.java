@@ -1,15 +1,22 @@
 class Solution {
     public int subarraySum(int[] nums, int k) {
-        int result = 0;
-        int currsum = 0;
-        HashMap<Integer, Integer> map = new HashMap<>();
-        map.put(0,1);
-        for(int n : nums){
-            currsum = currsum+n;
-            int diff = currsum - k;
-            result = result + map.getOrDefault(diff,0);
-            map.put(currsum,map.getOrDefault(currsum,0)+1);
+        // code here
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int sum = 0;
+        int count = 0;
+        for(int i =0;i<nums.length;i++){
+            sum = sum + nums[i];
+            if(sum == k){
+                count++;
+            }
+            int prefix = sum-k;
+            int a = map.getOrDefault(prefix,Integer.MIN_VALUE);
+            if(a != Integer.MIN_VALUE){
+                count+=a;
+            }
+            map.put(sum,map.getOrDefault(sum,0)+1);
         }
-        return result;
+        return count;
+    
     }
 }
