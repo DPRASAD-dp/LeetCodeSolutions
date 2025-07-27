@@ -10,11 +10,10 @@ class Solution {
                 start = mid+1;
             }
             if(letters[mid]>target){
-                ans = mid;
                 end = mid-1;
             }
             
         }
-        return letters[ans];
+        return letters[start];
     }
 }
