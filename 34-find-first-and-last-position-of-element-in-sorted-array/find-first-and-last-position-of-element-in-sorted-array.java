@@ -1,32 +1,40 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        int[] arr = new int[2];
-        arr[0] = binaryhelp(nums,target,true);
-        arr[1] = binaryhelp(nums,target,false);
-        return arr;
-    }
-    public int binaryhelp(int[] nums,int target,boolean leftbias){
-        int start =0;
+        int first = -1;
+        int last = -1;
+        int start = 0;
         int end = nums.length-1;
-        int i = -1;
         while(start<=end){
-            int mid = (end-start)/2 + start;
+            int mid = (end- start)/2 + start;
             if(nums[mid] == target){
-                i=mid;
-                if(leftbias){
-                    end = mid-1;
-                }
-                else{
-                    start = mid+1;
-                }
-            }
-            else if(nums[mid]<target){
+                last = mid;
                 start = mid+1;
+
             }
-            else{
+            if(nums[mid]<target){
+                start = mid+1;            }
+            if(nums[mid]>target){
+                end = mid-1;            }
+        }
+
+        start = 0;
+        end = nums.length-1;
+
+        while(start<=end){
+            int mid = (end- start)/2 + start;
+            if(nums[mid] == target){
+            first  = mid;
+                end = mid-1;
+
+            }
+            if(nums[mid]>target){
                 end = mid-1;
             }
-        } 
-        return i;
+
+            if(nums[mid]<target){
+                start = mid+1;            }
+        }
+
+        return new int[]{first,last};
     }
 }
