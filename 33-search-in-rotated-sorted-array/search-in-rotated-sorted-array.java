@@ -3,6 +3,9 @@ class Solution {
         int pivot = findPivot(nums);
         System.out.println(pivot);
         int ans = -1;
+        if(pivot != -1 && nums[pivot] == target){
+            return pivot;
+        }
         if(pivot == -1){
             return binsearch(0,nums.length-1,nums,target);
         }
