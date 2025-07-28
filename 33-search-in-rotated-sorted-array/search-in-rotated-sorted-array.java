@@ -10,8 +10,10 @@ class Solution {
             return binsearch(0,nums.length-1,nums,target);
         }
         else{
+            if(target>=nums[0]){
             ans = binsearch(0,pivot,nums,target);
-            if(ans == -1){
+            }
+            else{
                 ans = binsearch(pivot+1,nums.length-1,nums,target);
             }
         }
